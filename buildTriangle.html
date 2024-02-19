@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal's Triangle</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <img class="logo" src="logo.png" alt="Math logo">
+            <ul>
+                <li>
+                <a class="page-scroll" href="#">Bakunov's Math</a>
+                </li>
+            </ul>
+            </div>
+        <ul class="nav">
+            <li class="">
+                <a class="page-scroll" href="index.html">Інформація</a>
+            </li>
+            <li class="">
+                <a class="page-scroll active" href="buildTriangle.html">Згенерувати трикутник</a>
+            </li>
+            <li class="">
+                <a class="page-scroll" href="calculateElement.html">Вирахувати n-ий член</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="mainBody">
+        <div class="info">
+            <h2>Введіть кількість рядків трикутника:</h2>
+        <div>
+            <label for="rows">Кількість рядків:</label>
+            <input type="number" id="rows" min="1">
+            
+            <button id="tbutt">Створити трикутник</button>
+        
+        </div>
+        <div id="result"></div>
+        </div>
+    </div>
+
+    <script src="app1.js"></script>
+
+</body>
+</html>
