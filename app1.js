@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     let tbutt = document.getElementById("tbutt");
+    var info = this.getElementsByClassName("triangle")[0];
+    let lScroll = document.getElementById("lScroll");
 
     tbutt.addEventListener("click", function () {
+        info.classList.add('overflow');
+        info.classList.remove('triangle');
         generatePascalsTriangle();
     });
 });
@@ -33,6 +37,10 @@ function calculatePascalsTriangle(rows) {
 
 function displayPascalsTriangle(triangle) {
     const resultDiv = document.getElementById("result");
+    const over = document.getElementsByClassName("overflow")[0];
+
+
+    let maxRowWidth = 0;
 
     for (let i = 0; i < triangle.length; i++) {
         let rowElement = document.createElement("div");
@@ -46,5 +54,29 @@ function displayPascalsTriangle(triangle) {
         }
 
         resultDiv.appendChild(rowElement);
+
+        var rowWidth = rowElement.offsetWidth;
+
+        if (rowWidth > maxRowWidth) {
+            maxRowWidth = rowWidth;
+        }
+
+        
     }
+    
+    if(rowWidth <= over.clientWidth){
+        over.style.display = 'flex';
+    }else if(rowWidth > over.clientWidth){
+        over.style.removeProperty('display');
+    }
+    
+    resultDiv.style.width = maxRowWidth + 'px';
+    over.scrollLeft = (over.scrollWidth - over.clientWidth) / 2;
+    console.log(over.scrollLeft);
+
+    hui.addEventListener("click", function () {
+        over.scrollLeft += 100;
+        console.log(over.scrollLeft);
+
+    });
 }

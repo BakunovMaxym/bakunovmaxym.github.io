@@ -17,16 +17,14 @@ function generatePascalsElement() {
 
 function calculatePascalsElement(k, n) {
     if (n < 0 || n > k) {
-        return 0; // Номер стовпчика повинен бути в межах від 0 до номеру рядка
+        return 0;
     }
 
     if (k === 0 || n === 0 || n === k) {
-        return 1; // Перший та останній елемент рядка завжди рівні 1
+        return 1; 
     }
 
-    // Використовуємо рекурсію для знаходження значень зверху трикутника Паскаля
-    return calculatePascalsElement(k - 1, n - 1) + calculatePascalsElement(k - 1, n);
-
+    return Math.round(factorial(k)/(factorial(n)*factorial(k-n)));
 }
 
 const factorial = (e) => {
