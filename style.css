@@ -22,17 +22,19 @@ span{
     color: #b593f4;
 }
 
+#header{
+position: fixed;
+width: 100%;
+background: #222;
+}
+
 .navbar {
-    /* margin: 0;
-     padding: 10px; */
-    border-color: transparent;
-    background-color: #222;
     display: flex;
     justify-content:space-between;
 }
 
 .logo {
-    width: 50px;
+    height: 50px;
     border-radius: 25px;
 }
 
@@ -55,9 +57,34 @@ span{
     }
 }
 
-.nav{
+.nav-items{
     display: flex;
     justify-content: right;
+}
+
+.item{
+    list-style-type: none;
+}
+
+.nav-items li a,
+.navbar div span {
+    padding: 12px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing: 1px;
+    color: #fff;
+    text-decoration: none;
+    align-items: center;
+}
+
+.navbar div span{
+    font-size: 1.2rem;
+    padding: 6% 0 0 0 ;
+}
+
+.navbar div a {
+    padding: 0;
+    margin: 0;
 }
 
 .navbar div{
@@ -65,28 +92,19 @@ span{
     justify-content:start;
 }
 
-.navbar .icon-bar {
-    background-color: #fff;
-}
-
-ul{
-    list-style-type: none;
-}
-
-.nav li a,
-.navbar div a {
-    padding: 12px;
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    letter-spacing: 1px;
-    color: #fff;
-    text-decoration: none;
-}
-
 .page-scroll:hover,
 .page-scroll:focus {
     outline: 0;
     color: #cab1ff;
+    transition: .5s;
+
+}
+
+.active:hover,
+.active:focus {
+    color: #fff;
+    background-color: #5b13e1;
+    transition: .5s;
 }
 
 .active{
@@ -95,10 +113,31 @@ ul{
     background-color: #b593f4;
 }
 
-.active:hover,
-.active:focus {
-    color: #fff;
-    background-color: #5b13e1;
+#nav-button{
+    display: inline;
+    cursor: pointer;
+    display: none;
+}
+
+.bar1, .bar2, .bar3{
+    width: 40px;
+    height: 6px;
+    background: #fff;
+    margin: 6px;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.onChan .bar1{
+    transform: translate(0, 12px) rotate(45deg);
+}
+
+.onChan .bar2{
+    width: 0;
+}
+
+.onChan .bar3{
+    transform: translate(0, -12px) rotate(-45deg);
 }
 
 .mainBody {
@@ -111,10 +150,14 @@ ul{
 .info,
 .calcElement {
     margin: 10px;
+    margin-top: 60px;
     width: 60%;
     background-color: #fff;
     border-radius: 25px;
     align-content: center;
+}
+
+.info{
 }
 
 .triangle{
@@ -224,31 +267,59 @@ div button:hover{
     color: #fff;
 }
 
- @media(max-width:768px) {
-    .navbar {
-        border-color: transparent;
+ @media(max-width:920px) {
+    .nav-items {
+        position: fixed;
+        left: 0;
+        padding: 0;
+        top: 34px;
+        width: 100%;
+        height: 20%;
+        flex-direction: column;
         background-color: #222;
-        display: inline;
+        align-items: center;
+        padding-top: 50px;
+        transition: .5s;
+        transform: translateX(-100%);
+        opacity: 85%
     }
 
-    .navbar {
-        font-size: 2em;
-        -webkit-transition: all .3s;
-        -moz-transition: all .3s;
-        transition: all .3s;
+    .hideshow{
+        transform: translateY(0%);
     }
 
-    .navbar>.active>a {
-        border-radius: 3px;
+    .nav-items li {
+        margin: 20px 0px 0 0;
     }
 
-    .navbar.navbar-shrink {
-        padding: 10px 0;
-        background-color: #222;
+    .nav-items li {
+        display: block;
     }
 
-    .navbar.navbar-shrink .navbar-brand {
-        font-size: 1.5em;
+    #nav-button{
+        display: block;
+        margin-right: 5px;
     }
 
+    #header .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .info{
+        width: 95%;
+        margin-top: 60px;
+    }
+    .btw {
+        flex-direction: column;
+    }
+
+    .input label,
+    .input input {
+        margin-bottom: 10px;
+    }
+
+    .btw {
+        display: block;
+    }
  }

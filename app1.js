@@ -69,7 +69,7 @@ function displayPascalsTriangle(triangle) {
         over.style.removeProperty('overflow-x');
     }else if(rowWidth > over.clientWidth){
         over.style.removeProperty('display');
-        //over.style.overflow-x = 'scroll';
+        over.style.overflow = 'auto';
     }
     
     resultDiv.style.width = maxRowWidth + 'px';

@@ -7,27 +7,33 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <div>
-            <img class="logo" src="logo.png" alt="Math logo">
-            <ul>
-                <li>
-                <a class="page-scroll" href="#">Bakunov's Math</a>
-                </li>
-            </ul>
+    <div id="header">
+        <div class="container">
+            <div class="navbar">
+                <div>
+                <img class="logo" src="logo.png" alt="Math logo">
+                    <span>Bakunov's Math</span>
+                </div>
+                <ul class="nav-items">
+                    <li class="item">
+                        <a class="page-scroll" href="index.html">Інформація</a>
+                    </li>
+                    <li class="item">
+                        <a class="page-scroll" href="buildTriangle.html">Згенерувати трикутник</a>
+                    </li>
+                    <li class="item">
+                        <a class="page-scroll active" href="calculateElement.html">Вирахувати n-ий член</a>
+                    </li>
+                </ul>
             </div>
-        <ul class="nav">
-            <li class="">
-                <a class="page-scroll" href="index.html">Інформація</a>
-            </li>
-            <li class="">
-                <a class="page-scroll" href="buildTriangle.html">Згенерувати трикутник</a>
-            </li>
-            <li class="">
-                <a class="page-scroll active" href="calculateElement.html">Вирахувати n-ий член</a>
-            </li>
-        </ul>
-    </nav>
+
+        <div id="nav-button">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        </div>
+    </div>
 
     <div class="mainBody">
         <div class="calcElement">
@@ -53,6 +59,7 @@
     
 
     <script src="app2.js"></script>
+    <script src="main.js"></script>
 
 </body>
 </html>
