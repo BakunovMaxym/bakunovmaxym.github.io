@@ -369,6 +369,7 @@ div button:hover{
     background-color: #fc8f8f;
     border-radius: 15px;
 }
+
  @media(max-width:920px) {
     .nav-items {
         position: fixed;

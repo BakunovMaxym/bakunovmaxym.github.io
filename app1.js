@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function generatePascalsTriangle() {
+    
     let rowCount = document.getElementById("rows").value;
     document.getElementById("result").innerHTML = "";
 
@@ -74,14 +75,14 @@ function displayPascalsTriangle(triangle) {
 
         
     }
-    
+    over.style.overflowX = 'auto';
+    if(rowWidth > over.clientWidth){
+        over.style.removeProperty('display');
+    }
     if(rowWidth <= over.clientWidth){
         over.style.display = 'flex';
-        over.style.removeProperty('overflow-x');
-    }else if(rowWidth > over.clientWidth){
-        over.style.removeProperty('display');
-        over.style.overflowX = 'auto';
     }
+    
     
     resultDiv.style.width = maxRowWidth + 'px';
     over.scrollLeft = (over.scrollWidth - over.clientWidth) / 2;
@@ -102,7 +103,6 @@ function handleRowNumberClick(event) {
 
     let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex + 1}), #left .rowNumberActiveL:nth-child(${rowIndex + 1})`);
     let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex + 1}), #right .rowNumberActiveR:nth-child(${rowIndex + 1})`);
-    console.log(rowIdLeft);
     
     let rowElement = document.querySelector(`.row:nth-child(${rowIndex + 1})`);
 
@@ -122,9 +122,6 @@ function handleRowNumberHover(event) {
 
     let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex + 1}), #left .rowNumberActiveL:nth-child(${rowIndex + 1})`);
     let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex + 1}), #right .rowNumberActiveR:nth-child(${rowIndex + 1})`);
-
-    console.log(rowIdLeft);
-    console.log(rowIdRight);
     
     rowIdLeft.classList.toggle('rowNumberHover');
     rowIdRight.classList.toggle('rowNumberHover');
