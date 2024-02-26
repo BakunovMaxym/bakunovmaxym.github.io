@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function generatePascalsElement() {
     let k = document.getElementById("rows").value;
-    let n = document.getElementById("num").value - 1;
+    let n = document.getElementById("num").value -1;
     document.getElementById("result").innerHTML = "";
 
     const pascalsElement = calculatePascalsElement(k, n);
@@ -23,16 +23,21 @@ function calculatePascalsElement(k, n) {
     if (k === 0 || n === 0 || n === k) {
         return 1; 
     }
-
-    return Math.round(factorial(k)/(factorial(n)*factorial(k-n)));
+    if(n>=k-n){
+        return (factorial(k, n+1)/(factorial(k-n, 1)));
+    }else{
+        return (factorial(k, k-n+1)/factorial(n, 1));
+    }
 }
 
-const factorial = (e) => {
+const factorial = (e, x) => {
     let temp = 1;
-    
-    for (let i = 1; i <= e; i++) {
+    for (let i = x; i <= e; i++) {
         temp *= i;
+        console.log(`i = ${i}`);
+        console.log(`temp = ${temp}`);
     }
+    console.log(temp);
     return temp;
 }
 

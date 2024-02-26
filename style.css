@@ -149,23 +149,39 @@ background: #222;
 
 .info,
 .calcElement {
-    margin: 10px;
     margin-top: 60px;
-    width: 60%;
     background-color: #fff;
     border-radius: 25px;
     align-content: center;
 }
 
+#left,
+#right {
+    display: flex;
+    align-items: end;
+    margin-top: 10px;
+    border-radius: 25px;
+    flex-direction: column;
+    margin: 10px 10px 0 10px;
+}
+
+#right{
+    align-items: start;
+}
 .info{
+    display: block;
+    width: 66.7%;
 }
 
 .triangle{
     display: none;
 }
+.build{
+    margin-top: 10px;
+    width: 100%;
+}
 .overflow{
     justify-content: center;
-    /* overflow-x: scroll; */
     align-items: center;
 }
 
@@ -246,8 +262,13 @@ div button:hover{
 .highlight {
     color:#a378f5; 
     font-weight: bold;
- font-size: 1.5em;
+    font-size: 1.5em;
+}
 
+.temp{
+    display: grid;
+    grid-template-columns: 2fr 8fr 2fr;
+    width: 100%;
 }
 
 #result{
@@ -267,18 +288,98 @@ div button:hover{
     color: #fff;
 }
 
+.rowNumber {
+    text-align: center;
+    width: 29px;
+    height: 29px;
+    background: #222;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 2;
+    position: relative;
+    transition: transform .2s;
+}
+
+.rowNumber:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.rowNumberActiveL,
+    .rowNumberActiveR  {
+        text-align: center;
+        width: 60px;
+        height: 29px;
+        background: #fd0404;
+        color: #fff;
+        line-height: 2;
+        position: relative;
+        transition: transform .2s;
+        right: 5px;
+    }
+    
+    .rowNumberActiveR  {
+        left: 5px;
+    }
+    
+    .rowNumberActiveL::before,
+    .rowNumberActiveR::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 14.5px solid transparent;
+        border-left: 15px solid #f70505;
+        top: 50%;
+        left: 100%;
+        transform: translateY(-51.5%);
+        color: #fd0404;
+    }
+    
+    .rowNumberActiveR::before {
+        border-right: 15px solid #f70505;
+        border-left: 0;
+        left: -25%;
+    }
+    
+    .rowNumberActiveL::after,
+    .rowNumberActiveR::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 15px solid transparent;
+        border-left: 15px solid #a378f5;
+        top: 50%;
+        right: 51%;
+        transform: translateY(-52.5%);
+        color: #a378f5;
+    }
+    
+    .rowNumberActiveR::after {
+        border-right: 15px solid #a378f5;
+        border-left: 0;
+        left: 75%;
+    }
+
+
+.elementActive{
+    background-color: #fc8f8f;
+    border-radius: 15px;
+}
  @media(max-width:920px) {
     .nav-items {
         position: fixed;
         left: 0;
         padding: 0;
-        top: 34px;
+        top: 3.8%;
         width: 100%;
         height: 20%;
         flex-direction: column;
         background-color: #222;
         align-items: center;
-        padding-top: 50px;
+        padding-top: 2%;
+        padding-bottom: 4%;
         transition: .5s;
         transform: translateX(-100%);
         opacity: 85%
@@ -306,10 +407,7 @@ div button:hover{
         justify-content: space-between;
         align-items: center;
     }
-    .info{
-        width: 95%;
-        margin-top: 60px;
-    }
+    
     .btw {
         flex-direction: column;
     }
@@ -318,8 +416,43 @@ div button:hover{
     .input input {
         margin-bottom: 10px;
     }
-
+    input{
+        width: 40%;
+    }
     .btw {
         display: block;
     }
+    button{
+        width: 40%;
+        align-self: center;
+    }
+    #cbutt{
+        width: 70%;
+    }
+    .info .build .overflow{
+        margin-top: 0;
+        padding-top: 0;
+    }
+    .rowNumberActiveL{
+        width: 29px;
+        border-radius: 10px 0 0 10px;
+    }
+    .rowNumberActiveR {
+        width: 29px;
+        border-radius: 0 10px 10px 0;
+    }
+    .rowNumberActiveR::before {
+        border-right: 15px solid #f70505;
+        border-left: 0;
+        left: -50%;
+    }
+    .rowNumberActiveR::after {
+        border-right: 0;
+        border-left: 0;
+        left: 75%;
+    }
  }
+
+ @media(max-width:920px) {
+    
+}
