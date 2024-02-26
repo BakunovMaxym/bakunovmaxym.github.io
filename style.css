@@ -13,7 +13,7 @@ body{
     font-family: monospace;
     border-width: 1px;
     border-color: rgb(145, 45, 100);
-    place-items: center;
+    text-align: center;
 }
 
 span{
@@ -300,10 +300,11 @@ div button:hover{
     transition: transform .2s;
 }
 
-.rowNumber:hover {
+.rowNumberHover {
     cursor: pointer;
     transform: scale(1.2);
 }
+
 
 .rowNumberActiveL,
     .rowNumberActiveR  {
@@ -450,6 +451,9 @@ div button:hover{
         border-right: 0;
         border-left: 0;
         left: 75%;
+    }
+    .rowNumberHover{
+        transform: none;
     }
  }
 

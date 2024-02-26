@@ -80,16 +80,20 @@ function displayPascalsTriangle(triangle) {
         over.style.removeProperty('overflow-x');
     }else if(rowWidth > over.clientWidth){
         over.style.removeProperty('display');
-        over.style.overflow = 'auto';
+        over.style.overflowX = 'auto';
     }
     
     resultDiv.style.width = maxRowWidth + 'px';
     over.scrollLeft = (over.scrollWidth - over.clientWidth) / 2;
-    console.log(over.scrollLeft);
 
     document.querySelectorAll('.rowNumber').forEach(function(rowNumber) {
         rowNumber.addEventListener('click', handleRowNumberClick);
-        console.log(rowNumber);
+    });
+
+    document.querySelectorAll('.rowNumber').forEach(function(rowNumber) {
+        rowNumber.addEventListener('click', handleRowNumberClick);
+        rowNumber.addEventListener('mouseover', handleRowNumberHover);
+        rowNumber.addEventListener('mouseout', handleRowNumberHover);
     });
 }
 
@@ -98,6 +102,7 @@ function handleRowNumberClick(event) {
 
     let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex + 1}), #left .rowNumberActiveL:nth-child(${rowIndex + 1})`);
     let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex + 1}), #right .rowNumberActiveR:nth-child(${rowIndex + 1})`);
+    console.log(rowIdLeft);
     
     let rowElement = document.querySelector(`.row:nth-child(${rowIndex + 1})`);
 
@@ -110,3 +115,17 @@ function handleRowNumberClick(event) {
     rowElement.classList.toggle('elementActive');
 }
 
+
+
+function handleRowNumberHover(event) {
+    let rowIndex = parseInt(event.target.textContent);
+
+    let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex + 1}), #left .rowNumberActiveL:nth-child(${rowIndex + 1})`);
+    let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex + 1}), #right .rowNumberActiveR:nth-child(${rowIndex + 1})`);
+
+    console.log(rowIdLeft);
+    console.log(rowIdRight);
+    
+    rowIdLeft.classList.toggle('rowNumberHover');
+    rowIdRight.classList.toggle('rowNumberHover');
+}
