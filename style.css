@@ -153,6 +153,7 @@ background: #222;
     background-color: #fff;
     border-radius: 25px;
     align-content: center;
+    width: 60%;
 }
 
 #left,
@@ -373,9 +374,9 @@ div button:hover{
         position: fixed;
         left: 0;
         padding: 0;
-        top: 3.8%;
+        top: 34px;
         width: 100%;
-        height: 20%;
+        height: 130px;
         flex-direction: column;
         background-color: #222;
         align-items: center;
@@ -411,6 +412,11 @@ div button:hover{
     
     .btw {
         flex-direction: column;
+    }
+
+    .info,
+    .calcElement{
+        width: 95%;
     }
 
     .input label,
