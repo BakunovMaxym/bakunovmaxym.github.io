@@ -26,6 +26,7 @@ span{
 position: fixed;
 width: 100%;
 background: #222;
+z-index: 1;
 }
 
 .navbar {
@@ -163,7 +164,7 @@ background: #222;
     margin-top: 10px;
     border-radius: 25px;
     flex-direction: column;
-    margin: 10px 10px 0 10px;
+    margin: 30px 10px 0 10px;
 }
 
 #right{
@@ -274,6 +275,7 @@ div button:hover{
 
 #result{
     margin-bottom: 20px;
+    padding-top: 20px;
     overflow: hidden;
 }
 
@@ -289,10 +291,14 @@ div button:hover{
     color: #fff;
 }
 
+.number:hover{
+    cursor: pointer;
+}
+
 .rowNumber {
     text-align: center;
-    width: 29px;
-    height: 29px;
+    width: 29.203px;
+    height: 29.203px;
     background: #222;
     border-radius: 50%;
     color: #fff;
@@ -304,70 +310,109 @@ div button:hover{
 .rowNumberHover {
     cursor: pointer;
     transform: scale(1.2);
+    transition: .2s;
 }
 
 
 .rowNumberActiveL,
-    .rowNumberActiveR  {
-        text-align: center;
-        width: 60px;
-        height: 29px;
-        background: #fd0404;
-        color: #fff;
-        line-height: 2;
-        position: relative;
-        transition: transform .2s;
-        right: 5px;
-    }
+.rowNumberActiveR  {
+    text-align: center;
+    width: 60px;
+    height: 31px;
+    background: #f70505;
+    color: #fff;
+    line-height: 2;
+    position: relative;
+    transition: transform .2s;
+    right: 5px;
+    transition: .2s;
+    z-index: 1;
+}
+
+.rowNumberActiveR  {
+    left: 5px;
+}
     
-    .rowNumberActiveR  {
-        left: 5px;
-    }
+.rowNumberActiveL::before,
+.rowNumberActiveR::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 14.5px solid transparent;
+    border-left: 15px solid #f70505;
+    top: 50%;
+    left: 99%;
+    transform: translateY(-51.5%);
+    color: #f70505;
+}
+
+.rowNumberActiveR::before {
+    border-right: 15px solid #f70505;
+    border-left: 0;
+    left: -23%;
+}
+
+.rowNumberActiveL::after,
+.rowNumberActiveR::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-left: 15px solid #a378f5;
+    top: 50%;
+    right: 53%;
+    transform: translateY(-52.5%);
+    color: #a378f5;
+}
     
-    .rowNumberActiveL::before,
-    .rowNumberActiveR::before {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 14.5px solid transparent;
-        border-left: 15px solid #f70505;
-        top: 50%;
-        left: 100%;
-        transform: translateY(-51.5%);
-        color: #fd0404;
-    }
-    
-    .rowNumberActiveR::before {
-        border-right: 15px solid #f70505;
-        border-left: 0;
-        left: -25%;
-    }
-    
-    .rowNumberActiveL::after,
-    .rowNumberActiveR::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 15px solid transparent;
-        border-left: 15px solid #a378f5;
-        top: 50%;
-        right: 51%;
-        transform: translateY(-52.5%);
-        color: #a378f5;
-    }
-    
-    .rowNumberActiveR::after {
-        border-right: 15px solid #a378f5;
-        border-left: 0;
-        left: 75%;
-    }
+.rowNumberActiveR::after {
+    border-right: 15px solid #a378f5;
+    border-left: 0;
+    left: 77%;
+}
 
 
 .elementActive{
-    background-color: #fc8f8f;
+    background-color: #00ff00;
     border-radius: 15px;
+    transition: .20s;
+}
+
+.tooltip {
+    border-radius: 20px;
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    padding: 5px; 
+    font-size: 2rem;
+}
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px; 
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #ccc transparent transparent transparent;
+}
+
+.IDS{
+    display: flex;
+    flex-direction: column;
+}
+
+.RowID,
+.IDS {
+    font-size: 0.9rem;
+}
+
+.info .build .overflow{
+    width: 100%;
 }
 
  @media(max-width:920px) {
@@ -415,10 +460,16 @@ div button:hover{
         flex-direction: column;
     }
 
-    .info,
-    .calcElement{
+    .info{
         width: 95%;
     }
+
+    .build,
+    .calcElement{
+        width: 100%;
+    }
+
+    
 
     .input label,
     .input input {
@@ -437,16 +488,17 @@ div button:hover{
     #cbutt{
         width: 70%;
     }
-    .info .build .overflow{
+    .temp > .info .build{
         margin-top: 0;
         padding-top: 0;
+        width: 100%;
     }
     .rowNumberActiveL{
-        width: 29px;
+        width: 29.203px;
         border-radius: 10px 0 0 10px;
     }
     .rowNumberActiveR {
-        width: 29px;
+        width: 29.203px;
         border-radius: 0 10px 10px 0;
     }
     .rowNumberActiveR::before {
@@ -463,7 +515,3 @@ div button:hover{
         transform: none;
     }
  }
-
- @media(max-width:920px) {
-    
-}

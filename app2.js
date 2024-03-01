@@ -1,18 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let cbutt = document.getElementById("cbutt");
+    const cbutt = document.getElementById("cbutt");
 
-    cbutt.addEventListener("click", function () {
-        generatePascalsElement();
-    });
+    cbutt.addEventListener("click", generatePascalsElement);
 });
 
 function generatePascalsElement() {
-    let k = document.getElementById("rows").value;
-    let n = document.getElementById("num").value -1;
-    document.getElementById("result").innerHTML = "";
+    const k = document.getElementById("rows").value;
+    const n = document.getElementById("num").value - 1;
+    const resultDiv = document.getElementById("result");
+
+    if (isNaN(k) || isNaN(n)) {
+        resultDiv.innerHTML = "Введіть коректні числові значення для k та n.";
+        return;
+    }
+
+    resultDiv.innerHTML = "";
 
     const pascalsElement = calculatePascalsElement(k, n);
-    displayPascalsElement(pascalsElement);
+    displayPascalsElement(pascalsElement, resultDiv);
 }
 
 function calculatePascalsElement(k, n) {
@@ -20,39 +25,22 @@ function calculatePascalsElement(k, n) {
         return 0;
     }
 
-    if (k === 0 || n === 0 || n === k) {
-        return 1; 
-    }
-    if(n>=k-n){
-        return (factorial(k, n+1)/(factorial(k-n, 1)));
-    }else{
-        return (factorial(k, k-n+1)/factorial(n, 1));
-    }
+    return n >= k - n ? factorial(k, n + 1) / factorial(k - n, 1) : factorial(k, k - n + 1) / factorial(n, 1);
 }
 
 const factorial = (e, x) => {
     let temp = 1;
     for (let i = x; i <= e; i++) {
         temp *= i;
-        console.log(`i = ${i}`);
-        console.log(`temp = ${temp}`);
     }
     console.log(temp);
     return temp;
 }
 
-function displayPascalsElement(element) {
-    const resultDiv = document.getElementById("result");
-
+function displayPascalsElement(element, resultDiv) {
     const containerElement = document.createElement("p");
-
-    containerElement.textContent = "Елемент трикутника Паскаля: ";
-
-    const numElement = document.createElement("span");
-    numElement.textContent = element;
-    numElement.classList.add("highlight"); 
-
-    containerElement.appendChild(numElement);
+    containerElement.textContent = `Елемент трикутника Паскаля: ${element}`;
+    containerElement.classList.add("highlight"); 
 
     resultDiv.appendChild(containerElement);
 }
