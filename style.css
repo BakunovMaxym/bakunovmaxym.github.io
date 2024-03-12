@@ -105,7 +105,7 @@ z-index: 1;
 .active:focus {
     color: #fff;
     background-color: #5b13e1;
-    transition: .5s;
+    cursor: pointer;
 }
 
 .active{
@@ -297,8 +297,8 @@ div button:hover{
 
 .rowNumber {
     text-align: center;
-    width: 29.203px;
-    height: 29.203px;
+    min-width: 29px;
+    height: 29.2px;
     background: #222;
     border-radius: 50%;
     color: #fff;
@@ -307,10 +307,9 @@ div button:hover{
     transition: transform .2s;
 }
 
-.rowNumberHover {
+.rowNumber:Hover {
     cursor: pointer;
     transform: scale(1.2);
-    transition: .2s;
 }
 
 
@@ -323,10 +322,14 @@ div button:hover{
     color: #fff;
     line-height: 2;
     position: relative;
-    transition: transform .2s;
+    transition: transform;
     right: 5px;
-    transition: .2s;
     z-index: 1;
+}
+
+.rowNumberActiveL:hover,
+.rowNumberActiveR:hover  {
+    cursor: pointer;
 }
 
 .rowNumberActiveR  {
