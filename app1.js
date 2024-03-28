@@ -11,6 +11,15 @@ let addRowDown = 0;
 let isScrollDown = true;
 var isScrollToMiddle = false;
 var highestElement;
+let isOverflowed = false;
+let isTooltipVisible = false;
+
+var scrollSpeed = 5; 
+let holdTime = 0; 
+let scrollInterval;
+
+const scrollLeftBtn = document.querySelector('.scroll-left');
+const scrollRightBtn = document.querySelector('.scroll-right');
 
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
@@ -23,6 +32,7 @@ var documentHeight = Math.max(
 var scrollToMiddle;
 
 document.addEventListener("DOMContentLoaded", function () {
+
     let tbutt = document.getElementById("tbutt");
     var info = this.getElementsByClassName("triangle")[0];
     let windowRowCount = Math.round(window.innerHeight / 29 * 1.7);
@@ -49,9 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let st = window.pageYOffset || document.documentElement.scrollTop;
         let rows = document.querySelectorAll('.rowNumber');
-        //console.log(rows);
         let lastRow = rows[rows.length - 1];
-        //console.log(lastRow);
 
         var highestTop = Infinity;
 
@@ -63,8 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // console.log(highestElement);
-
         if (st > lastScrollTop) {
             displayDownFirst = parseInt(lastRow.textContent);
             displayDownSecond = parseInt(lastRow.textContent) + windowRowCount;
@@ -74,21 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 displayPascalsTriangle(pascalsTriangle, displayDownFirst+1, displayDownSecond);
 
                 hideDownFirst = parseInt(highestElement.textContent);
-                hideDownSecond = displayDownFirst - 10;
-                console.log(hideDownSecond);
                 if(hideDownFirst < 0)hideDownFirst = 0;
-
-                console.log("+++++++++++++++++++++++");
-                console.log(displayDownFirst);
-                console.log(displayDownSecond);
-                console.log(hideDownFirst)
-                console.log(hideDownSecond)
-                console.log(displayDownFirst - displayDownSecond)
-                console.log(hideDownFirst - hideDownSecond)
-                console.log("+++++++++++++++++++++++");
+                hideDownSecond = displayDownFirst - 10;
 
                 isScrollToMiddle = true;
-                hidePascalsTriangle(hideDownFirst, hideDownSecond+2, 1);
+                hidePascalsTriangle(hideDownFirst, hideDownSecond, 1);
                 var scrollToMiddle = window.innerHeight / 2.5;
                 window.scrollTo(0, scrollToMiddle);
 
@@ -104,13 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             isScrollDown = false;
 
-            // console.log("highestElement", highestElement.offsetTop);
-            // console.log("scroll", this.window.scrollY);
-
-
             if (highestElement.offsetTop >= this.window.scrollY && !isAllRowsDisplayedUp) {
-                displayDownFirst = parseInt(lastRow.textContent);
-                displayDownSecond = displayDownFirst - windowRowCount + 15;
+                displayDownFirst = parseInt(lastRow.textContent)+1;
+                displayDownSecond = displayDownFirst - windowRowCount + 10;
+                if(displayDownSecond < windowRowCount) diwindowRowCount = windowRowCount;
 
                 hideDownFirst = parseInt(highestElement.textContent);
                 hideDownSecond = hideDownFirst - windowRowCount;
@@ -119,47 +112,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideUpFirst = parseInt(lastRow.textContent);
                 hideUpSecond = hideUpFirst - windowRowCount;
 
-
-                console.log("----------------------");
-                console.log(rows.length);
-                console.log(hideDownFirst);
-                console.log(hideDownSecond);
-                console.log(displayDownFirst)
-                console.log(displayDownSecond)
-                console.log("----------------------");
-
-
                 if (hideDownSecond == 0) {
                     isAllRowsDisplayedUp = true;
                 }
-                // if (isAllRowsDisplayedUp) {
-
-                // }
-                // console.log(rows);
 
                     displayPascalsTriangle(pascalsTriangle, hideDownSecond, hideDownFirst);
-                    // console.log('success');
- 
+                    hidePascalsTriangle(displayDownSecond+1, displayDownFirst+1, displayDownFirst - hideDownSecond + 1);
                     
-                    hidePascalsTriangle(displayDownSecond, displayDownFirst+1, displayDownFirst - displayDownSecond + 28);
-                    
-                    
-                console.log(hideDownSecond);
-
-                    // console.log(rows);
-                    
-                    // var scrollToMiddle = windowHeight / 1.1;
-                    // document.documentElement.scrollTop = scrollToMiddle;
-                    // document.body.scrollTop = scrollToMiddle;
                     var scrollToMiddle = window.innerHeight / 0.7;
                     window.scrollTo(0, scrollToMiddle);
-                console.log("scrollToMiddle", scrollToMiddle);
-
                 }
             }
-            // console.log(rows);
 
-        
         lastScrollTop = st;
 
         
@@ -172,24 +136,52 @@ document.addEventListener("DOMContentLoaded", function () {
         right.innerHTML = "";
     }
 
+    setupScrollButtons();
+
     
 });
 
-
 const tooltip = document.createElement("div");
 tooltip.classList.add("tooltip");
+
+function setupScrollButtons() {
+    scrollLeftBtn.addEventListener('mousedown', () => {
+        startScroll(-1); // Scroll left
+        if (isTooltipVisible) {
+            console.log("bdfbdfb")
+            tooltip.innerHTML = " ";
+            tooltip.style.display = 'none';
+            isTooltipVisible = false;
+        }
+    });
+
+    scrollLeftBtn.addEventListener('mouseup', stopScroll);
+    scrollLeftBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollRightBtn.addEventListener('mousedown', () => {
+        startScroll(1); // Scroll right
+        if (isTooltipVisible) {
+            console.log("bdfbdfb")
+            tooltip.innerHTML = " ";
+            tooltip.style.display = 'none';
+            isTooltipVisible = false;
+        }
+    });
+
+    scrollRightBtn.addEventListener('mouseup', stopScroll);
+    scrollRightBtn.addEventListener('mouseleave', stopScroll);
+}
 
 function generatePascalsTriangle() {
     document.getElementById("result").innerHTML = "";
 
     displayPascalsTriangle(pascalsTriangle, 0, (window.innerHeight / 29 * 1.7));
-    
 }
 
 function calculatePascalsTriangle(rows) {
     let triangle = [];
 
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i <= rows; i++) {
         triangle[i] = [];
         triangle[i][0] = 1;
 
@@ -202,7 +194,6 @@ function calculatePascalsTriangle(rows) {
 
     return triangle;
 }
-
 
 function displayPascalsTriangle(triangle, rowf, rowl) {
     const resultDiv = document.getElementById("result");
@@ -234,7 +225,6 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
             numElement.textContent = triangle[i][j];
             rowElement.appendChild(numElement);
 
-            let isTooltipVisible = false;
             tooltip.style.display = "none";
 
             numElement.addEventListener('click', function (event) {
@@ -242,18 +232,10 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
                     handleMouseHover(event, i, j, tooltip, numElement, over, resultDiv);
                     isTooltipVisible = true;
                     tooltip.style.removeProperty('display');
-                    console.log("show tip");
-                    tooltip.offsetTop = numElement.offsetTop
-                    console.log(numElement.offsetTop);
-                    console.log(tooltip.offsetTop);
-                    console.log(tooltip.offsetLeft);
-                    console.log(tooltip.style.display);
-                    console.log(tooltip);
                 } else {
                     tooltip.innerHTML = " ";
                     tooltip.style.display = 'none';
                     isTooltipVisible = false;
-                    console.log("hide tip");
                 }
             });
         }
@@ -261,20 +243,11 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
         if (isScrollDown) {
             left.appendChild(rowNumber);
             right.appendChild(rowNumber2);
-
             resultDiv.appendChild(rowElement);
         }
         else {
-            // console.log("firstLeft", firstLeft);
-            // console.log("rowNumber", rowNumber);
-            // console.log("firstRight", firstRight);
-            // console.log("rowNumber2", rowNumber2);
-            // console.log("firstNum", firstNum);
-            // console.log("rowElement", rowElement);
-
             left.insertBefore(rowNumber, firstLeft);
             right.insertBefore(rowNumber2, firstRight);
-
             resultDiv.insertBefore(rowElement, firstNum);
         }
 
@@ -287,60 +260,67 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
     over.style.overflowX = 'auto';
     if (maxRowWidth > over.clientWidth) {
         over.style.removeProperty('display');
+        isOverflowed = true;
+        scrollLeftBtn.style.display = "block";
+        scrollRightBtn.style.display = "block";
     }
     if (maxRowWidth <= over.clientWidth) {
         over.style.display = 'flex';
+        isOverflowed = false;
+        scrollLeftBtn.style.display = "none";
+        scrollRightBtn.style.display = "none";
     }
 
     resultDiv.style.width = maxRowWidth + 'px';
     over.scrollLeft = (over.scrollWidth - over.clientWidth) / 2;
     document.querySelectorAll('.rowNumber').forEach(function (rowNumber) {
         rowNumber.addEventListener('click', handleRowNumberClick);
-        // rowNumber.addEventListener('mouseover', handleRowNumberHover);
-        // rowNumber.addEventListener('mouseout', handleRowNumberHover);
     });
 
 }
 
+function startScroll(direction) {
+    scrollInterval = setInterval(() => {
+        document.querySelector('.overflow').scrollLeft += direction * scrollSpeed; 
+        holdTime += 5; 
+        if (holdTime % 50 === 0) {
+            increaseScrollSpeed(); 
+        }
+    }, 5); 
+}
+
+function stopScroll() {
+    clearInterval(scrollInterval);
+    scrollSpeed = 5; 
+    holdTime = 0; 
+}
+
+function increaseScrollSpeed() {
+    scrollSpeed = scrollSpeed + 1; 
+}
+
 function hidePascalsTriangle(rowf, rowl, temp) {
 
-    console.log("working");
-    console.log("=================");
-    console.log(rowf);
-    console.log(rowl);
-    console.log(temp);
-    console.log("=================");
     const numElements = document.getElementsByClassName("row");
-    // console.log(numElements);
+
+    const elementsWithId = document.querySelectorAll('#left .rowNumber, #left .rowNumberActiveL');
 
     for (let i = rowf; i < rowl; i++) {
 
-        //console.log(i);
+        temp--;
+        if(temp <= 1) temp = 1;
 
         const numElement = numElements[temp-1];
         const rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${temp}), #left .rowNumberActiveL:nth-child(${temp})`);
         const rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${temp}), #right .rowNumberActiveR:nth-child(${temp})`);
-        const rowIdLeftArr = document.getElementById(`left`);
-// console.log(rowIdLeftArr.childElementCount);
-
-        // console.log(rowIdLeft);
-        // console.log(rowIdRight);
-        // console.log(i);
-
-        //numElement.remove();
-        // numElement.innerHTML = "";
+        
         numElement.remove();
         if (rowIdLeft) {
-            // rowIdLeft.innerHTML = "";
-            // rowIdLeft.style.display="none"
             rowIdLeft.remove();
         }
         if (rowIdRight) {
-            // rowIdRight.innerHTML = "";
-            // rowIdRight.style.display="none"
             rowIdRight.remove();
         }
-        // console.log(rowl);
     }
 
 }
@@ -355,7 +335,6 @@ function handleMouseHover(event, rowIndex, elementIndex, tooltip, numElement, ov
         </span>
     `;
 
-    //console.log(numElement.width);
     tooltip.style.top = (numElement.offsetTop - 57) + 'px';
     tooltip.style.left = (numElement.offsetLeft - over.scrollLeft - 22 + numElement.offsetWidth / 2) + 'px';
 
@@ -365,12 +344,6 @@ function handleMouseHover(event, rowIndex, elementIndex, tooltip, numElement, ov
 
 function handleRowNumberClick(event) {
     let rowIndex = parseInt(event.target.textContent);
-    // console.log(rowIndex);
-    // console.log(rowIndex - hideDownSecond);
-    // console.log(hideDownSecond);
-
-    // console.log(document.getElementsByClassName("rowNumber"));
-
     let firstElemend = 0;
 
     if (highestElement !== undefined) {
@@ -382,8 +355,6 @@ function handleRowNumberClick(event) {
 
     let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex - firstElemend +1}), #left .rowNumberActiveL:nth-child(${rowIndex - firstElemend +1})`);
     let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex - firstElemend +1}), #right .rowNumberActiveR:nth-child(${rowIndex - firstElemend +1})`);
-    console.log(rowIdLeft);
-    console.log(rowIdRight);
 
     let rowElement = document.querySelector(`.row:nth-child(${rowIndex - firstElemend +1})`);
 
@@ -399,12 +370,10 @@ function handleRowNumberClick(event) {
 function handleRowNumberHover(event) {
     let rowIndex = parseInt(event.target.textContent);
 
-    // Remove hover class from all rows
     document.querySelectorAll('.rowNumber').forEach(rowNumber => {
         rowNumber.classList.remove('rowNumberHover');
     });
 
-    // Add hover class to the current row
     let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex + 1})`);
     let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex + 1})`);
 

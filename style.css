@@ -14,6 +14,7 @@ body{
     border-width: 1px;
     border-color: rgb(145, 45, 100);
     text-align: center;
+    
 }
 
 span{
@@ -298,7 +299,7 @@ div button:hover{
 .rowNumber {
     text-align: center;
     min-width: 29px;
-    height: 29.2px;
+    height: 29px;
     background: #222;
     border-radius: 50%;
     color: #fff;
@@ -317,14 +318,14 @@ div button:hover{
 .rowNumberActiveR  {
     text-align: center;
     width: 60px;
-    height: 31px;
+    height: 29px;
     background: #f70505;
     color: #fff;
     line-height: 2;
     position: relative;
     transition: transform;
     right: 5px;
-    z-index: 1;
+    z-index: 0;
 }
 
 .rowNumberActiveL:hover,
@@ -371,12 +372,14 @@ div button:hover{
 }
     
 .rowNumberActiveR::after {
-    border-right: 15px solid #a378f5;
+    border-right: 15px solid rgb(163, 120, 245);
     border-left: 0;
     left: 77%;
 }
 
-
+.row{
+    max-height: 29px;
+}
 .elementActive{
     background-color: #00ff00;
     border-radius: 15px;
@@ -416,6 +419,36 @@ div button:hover{
 
 .info .build .overflow{
     width: 100%;
+
+}
+
+.scroll-left,
+.scroll-right {
+    display: none;
+    position: fixed;
+    border-width: 0;
+    border-radius: 20%;
+    z-index: 100;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+}
+
+.scroll-left{
+    left: 5%;
+    background-image: url("leftArrow.png");
+}
+
+.scroll-right{
+    right: 5%;
+    background-image: url("rightArrow.png");
+}
+
+.scroll-left:hover,
+.scroll-right:hover {
+    cursor: pointer;
+    border-width: 2px;
 }
 
  @media(max-width:920px) {
@@ -497,12 +530,15 @@ div button:hover{
         width: 100%;
     }
     .rowNumberActiveL{
-        width: 29.203px;
+        width: 29px;
         border-radius: 10px 0 0 10px;
+        z-index: 0;
     }
     .rowNumberActiveR {
-        width: 29.203px;
+        width: 29px;
         border-radius: 0 10px 10px 0;
+        z-index: 0;
+
     }
     .rowNumberActiveR::before {
         border-right: 15px solid #f70505;
