@@ -1,6 +1,6 @@
 let rowCount;
 let pascalsTriangle;
-let isAllRowsDisplayedUp = false;
+let isAllRowsDisplayedUp = true;
 let isAllRowsDisplayedDown = false;
 let firstRowUp = 0;
 let firstRowDown = 0;
@@ -14,8 +14,8 @@ var highestElement;
 let isOverflowed = false;
 let isTooltipVisible = false;
 
-var scrollSpeed = 5; 
-let holdTime = 0; 
+var scrollSpeed = 5;
+let holdTime = 0;
 let scrollInterval;
 
 const scrollLeftBtn = document.querySelector('.scroll-left');
@@ -38,9 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let windowRowCount = Math.round(window.innerHeight / 29 * 1.7);
 
     tbutt.addEventListener("click", function () {
+        // info.innerHTML = "";
         info.classList.add('overflow');
         info.classList.remove('triangle');
-        rowCount = document.getElementById("rows").value;
+        rowCount = parseInt(document.getElementById("rows").value);
         pascalsTriangle = calculatePascalsTriangle(rowCount);
         isScrollDown = true;
         clearRowNumbers();
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         generatePascalsTriangle();
         isAllRowsDisplayed = false;
 
-        
+
     });
 
     let lastScrollTop = 0;
@@ -71,72 +72,115 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        if (st > lastScrollTop) {
+        if (st > lastScrollTop && lastRow.textContent != rowCount) {
             displayDownFirst = parseInt(lastRow.textContent);
             displayDownSecond = parseInt(lastRow.textContent) + windowRowCount;
+
             //scroll down 
             isScrollDown = true;
+
             if (lastRow.offsetTop <= window.scrollY + window.innerHeight && !isAllRowsDisplayedDown) {
-                displayPascalsTriangle(pascalsTriangle, displayDownFirst+1, displayDownSecond);
+                if (displayDownSecond > rowCount) {
+                    displayDownSecond = rowCount;
+                    isAllRowsDisplayedDown = true;
+                }
+                // console.log("+++++++++++++++++++++++");
+                // console.log(displayDownFirst + 1);
+                // console.log(displayDownSecond + 1);
+                displayPascalsTriangle(pascalsTriangle, displayDownFirst + 1, displayDownSecond);
 
                 hideDownFirst = parseInt(highestElement.textContent);
-                if(hideDownFirst < 0)hideDownFirst = 0;
+                if (hideDownFirst < 0) hideDownFirst = 0;
                 hideDownSecond = displayDownFirst - 10;
 
                 isScrollToMiddle = true;
-                hidePascalsTriangle(hideDownFirst, hideDownSecond, 1);
-                var scrollToMiddle = window.innerHeight / 2.5;
-                window.scrollTo(0, scrollToMiddle);
+                // console.log(displayDownFirst - displayDownSecond);
+                // console.log(hideDownFirst - hideDownSecond);
+                // console.log(hideDownSecond);
+                // console.log(highestElement);
 
-                if (parseInt(lastRow.textContent) + windowRowCount >= pascalsTriangle.length) {
-                    isAllRowsDisplayedDown = true;
-                }
+                // console.log(isAllRowsDisplayedUp);
+                // console.log(hideDownSecond - hideDownFirst);
+                var scrollToMiddle;
+                scrollToMiddle = window.innerHeight / 2.5;
+
+                if (hideDownSecond - hideDownFirst + 1 >= windowRowCount) {
+                    hidePascalsTriangle(hideDownFirst, hideDownSecond, 1);
                 isAllRowsDisplayedUp = false;
+                scrollToMiddle = window.innerHeight / 2.8;
+            }else{
+                scrollToMiddle = document.documentElement.scrollHeight / 2.4;
             }
-        } 
-        else {
+                // console.log(isAllRowsDisplayedUp);
+                window.scrollTo(0, scrollToMiddle);
+                // console.log("+++++++++++++++++++++++");
 
-            //scroll up
-
-            isScrollDown = false;
-
-            if (highestElement.offsetTop >= this.window.scrollY && !isAllRowsDisplayedUp) {
-                displayDownFirst = parseInt(lastRow.textContent)+1;
-                displayDownSecond = displayDownFirst - windowRowCount + 10;
-                if(displayDownSecond < windowRowCount) diwindowRowCount = windowRowCount;
-
-                hideDownFirst = parseInt(highestElement.textContent);
-                hideDownSecond = hideDownFirst - windowRowCount;
-                if (hideDownSecond < 0) hideDownSecond = 0;
-
-                hideUpFirst = parseInt(lastRow.textContent);
-                hideUpSecond = hideUpFirst - windowRowCount;
-
-                if (hideDownSecond == 0) {
-                    isAllRowsDisplayedUp = true;
-                }
-
-                    displayPascalsTriangle(pascalsTriangle, hideDownSecond, hideDownFirst);
-                    hidePascalsTriangle(displayDownSecond+1, displayDownFirst+1, displayDownFirst - hideDownSecond + 1);
-                    
-                    var scrollToMiddle = window.innerHeight / 0.7;
-                    window.scrollTo(0, scrollToMiddle);
-                }
             }
+        }
+        // else {
+
+        //scroll up
+
+        isScrollDown = false;
+
+        if (highestElement.offsetTop >= this.window.scrollY && !isAllRowsDisplayedUp) {
+            if(highestElement.textContent == 0) isAllRowsDisplayedUp = true;
+            displayDownFirst = parseInt(lastRow.textContent) + 1;
+            displayDownSecond = displayDownFirst - windowRowCount + 10;
+            if (displayDownSecond < windowRowCount) diwindowRowCount = windowRowCount;
+
+            hideDownFirst = parseInt(highestElement.textContent);
+            hideDownSecond = hideDownFirst - windowRowCount;
+            if (hideDownSecond < 0) hideDownSecond = 0;
+
+            hideUpFirst = parseInt(lastRow.textContent);
+            hideUpSecond = hideUpFirst - windowRowCount;
+
+
+            // // console.log("---------------------");
+            // console.log(hideDownFirst - hideDownSecond);
+            // console.log(displayDownSecond - displayDownFirst);
+            // // console.log(hideDownSecond);
+            // // console.log(hideDownFirst);
+            // // console.log(displayDownSecond + 1);
+            // // console.log(displayDownFirst + 1);
+
+            // // console.log(hideDownSecond - hideDownFirst);
+            // // console.log(windowRowCount);
+            // // console.log(isAllRowsDisplayedUp);
+            // console.log("---------------------");
+
+            displayPascalsTriangle(pascalsTriangle, hideDownSecond, hideDownFirst);
+            // if (displayDownFirst - displayDownSecond >= 1.5 * windowRowCount) {
+                // console.log("fbdfbdfb");
+                hidePascalsTriangle(displayDownSecond + 1, displayDownFirst + 1, displayDownFirst - hideDownSecond + 1);
+                isAllRowsDisplayedDown = false;
+            // }
+
+            var scrollToMiddle = window.innerHeight / 0.7;
+            window.scrollTo(0, scrollToMiddle);
+        }
+        if (hideDownSecond == 0) {
+            isAllRowsDisplayedUp = true;
+        }
+        // console.log(isAllRowsDisplayedUp);
+    
 
         lastScrollTop = st;
 
-        
-    });
 
-    function clearRowNumbers() {
-        const left = document.getElementById("left");
-        const right = document.getElementById("right");
-        left.innerHTML = "";
-        right.innerHTML = "";
-    }
+});
 
-    setupScrollButtons();
+function clearRowNumbers() {
+    const left = document.getElementById("left");
+    const right = document.getElementById("right");
+    const res = document.getElementById("result");
+    left.innerHTML = "";
+    right.innerHTML = "";
+    res.innerHTML = "";
+}
+
+setupScrollButtons();
 
     
 });
@@ -261,8 +305,11 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
     if (maxRowWidth > over.clientWidth) {
         over.style.removeProperty('display');
         isOverflowed = true;
-        scrollLeftBtn.style.display = "block";
-        scrollRightBtn.style.display = "block";
+        if(windowHeight >= 900){
+
+            scrollLeftBtn.style.display = "block";
+            scrollRightBtn.style.display = "block";
+        }
     }
     if (maxRowWidth <= over.clientWidth) {
         over.style.display = 'flex';
@@ -281,26 +328,26 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
 
 function startScroll(direction) {
     scrollInterval = setInterval(() => {
-        document.querySelector('.overflow').scrollLeft += direction * scrollSpeed; 
-        holdTime += 5; 
+        document.querySelector('.overflow').scrollLeft += direction * scrollSpeed;
+        holdTime += 5;
         if (holdTime % 50 === 0) {
-            increaseScrollSpeed(); 
+            increaseScrollSpeed();
         }
-    }, 5); 
+    }, 5);
 }
 
 function stopScroll() {
     clearInterval(scrollInterval);
-    scrollSpeed = 5; 
-    holdTime = 0; 
+    scrollSpeed = 5;
+    holdTime = 0;
 }
 
 function increaseScrollSpeed() {
-    scrollSpeed = scrollSpeed + 1; 
+    scrollSpeed = scrollSpeed + 1;
 }
 
 function hidePascalsTriangle(rowf, rowl, temp) {
-
+    // console.log("working")
     const numElements = document.getElementsByClassName("row");
 
     const elementsWithId = document.querySelectorAll('#left .rowNumber, #left .rowNumberActiveL');
@@ -308,12 +355,12 @@ function hidePascalsTriangle(rowf, rowl, temp) {
     for (let i = rowf; i < rowl; i++) {
 
         temp--;
-        if(temp <= 1) temp = 1;
+        if (temp <= 1) temp = 1;
 
-        const numElement = numElements[temp-1];
+        const numElement = numElements[temp - 1];
         const rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${temp}), #left .rowNumberActiveL:nth-child(${temp})`);
         const rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${temp}), #right .rowNumberActiveR:nth-child(${temp})`);
-        
+
         numElement.remove();
         if (rowIdLeft) {
             rowIdLeft.remove();
@@ -351,12 +398,12 @@ function handleRowNumberClick(event) {
     } else {
         firstElemend = 0;
     }
-    if(firstElemend === undefined) firstElemend = 0;
+    if (firstElemend === undefined) firstElemend = 0;
 
-    let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex - firstElemend +1}), #left .rowNumberActiveL:nth-child(${rowIndex - firstElemend +1})`);
-    let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex - firstElemend +1}), #right .rowNumberActiveR:nth-child(${rowIndex - firstElemend +1})`);
+    let rowIdLeft = document.querySelector(`#left .rowNumber:nth-child(${rowIndex - firstElemend + 1}), #left .rowNumberActiveL:nth-child(${rowIndex - firstElemend + 1})`);
+    let rowIdRight = document.querySelector(`#right .rowNumber:nth-child(${rowIndex - firstElemend + 1}), #right .rowNumberActiveR:nth-child(${rowIndex - firstElemend + 1})`);
 
-    let rowElement = document.querySelector(`.row:nth-child(${rowIndex - firstElemend +1})`);
+    let rowElement = document.querySelector(`.row:nth-child(${rowIndex - firstElemend + 1})`);
 
     rowIdLeft.classList.toggle('rowNumberActiveL');
     rowIdLeft.classList.toggle('rowNumber');
