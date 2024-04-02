@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function generatePascalsElement() {
     const k = document.getElementById("rows").value;
-    const n = document.getElementById("num").value - 1;
+    const n = document.getElementById("num").value;
     const resultDiv = document.getElementById("result");
 
     if (isNaN(k) || isNaN(n)) {

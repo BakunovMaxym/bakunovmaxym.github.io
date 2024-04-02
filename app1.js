@@ -22,6 +22,7 @@ const scrollLeftBtn = document.querySelector('.scroll-left');
 const scrollRightBtn = document.querySelector('.scroll-right');
 
 var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 var documentHeight = Math.max(
     document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pascalsTriangle = calculatePascalsTriangle(rowCount);
         isScrollDown = true;
         clearRowNumbers();
-
+ console.log(windowWidth);
         generatePascalsTriangle();
         isAllRowsDisplayed = false;
 
@@ -305,7 +306,7 @@ function displayPascalsTriangle(triangle, rowf, rowl) {
     if (maxRowWidth > over.clientWidth) {
         over.style.removeProperty('display');
         isOverflowed = true;
-        if(windowHeight >= 900){
+        if(windowWidth >= 900){
 
             scrollLeftBtn.style.display = "block";
             scrollRightBtn.style.display = "block";

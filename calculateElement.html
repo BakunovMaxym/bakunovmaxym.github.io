@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
     <link rel="icon" href="logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
     <div id="header">
         <div class="container">
             <div class="navbar">
                 <div>
-                <img class="logo" src="logo.png" alt="Math logo">
+                    <img class="logo" src="logo.png" alt="Math logo">
                     <span>Bakunov's Math</span>
                 </div>
                 <ul class="nav-items">
@@ -28,39 +30,46 @@
                 </ul>
             </div>
 
-        <div id="nav-button">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-        </div>
+            <div id="nav-button">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
         </div>
     </div>
 
-    <div class="mainBody">
+    <div class="mainBody calc">
         <div class="calcElement">
             <h2>Введіть параметри для обрахунків члена трикутника Паскаля:</h2>
-        <div class="grid">
-            <div>
-            <div>
-                <label for="rows">Номер рядка:</label>
-                <input type="number" id="rows" min="1" value="5">        
+            <div class="grid">
+                <div class="calcInput">
+
+                    <span class="c">C</span>
+
+                    <span class="inputC">
+                        <div>
+                            <!-- <label for="num">Номер члена:</label> -->
+                            <input type="number" id="num" min="1" value="5">
+                        </div>
+                        <div>
+                            <!-- <label for="rows">Номер рядка:</label> -->
+                            <input type="number" id="rows" min="1" value="5">
+                        </div>
+                    </span>
+
+                </div>
+                <div class="calcBtn">
+                    <button id="cbutt">Порахувати знчення n-ого члену трикутника</button>
+                </div>
             </div>
-            <div>
-                <label for="num">Номер члена:</label>
-                <input type="number" id="num" min="1" value="5">
-            </div>
-        </div>
-        <div>
-            <button id="cbutt">Порахувати знчення n-ого члену трикутника</button>
+            <div id="result"></div>
         </div>
     </div>
-        <div id="result"></div>
-        </div>
-    </div>
-    
+
 
     <script src="app2.js"></script>
     <script src="main.js"></script>
 
 </body>
+
 </html>
