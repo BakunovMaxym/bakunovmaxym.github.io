@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function generatePascalsElement() {
-    const k = document.getElementById("rows").value;
-    const n = document.getElementById("num").value;
+    const k = parseInt(document.getElementById("rows").value);
+    const n = parseInt(document.getElementById("num").value);
     const resultDiv = document.getElementById("result");
 
     if (isNaN(k) || isNaN(n)) {
@@ -25,7 +25,17 @@ function calculatePascalsElement(k, n) {
         return 0;
     }
 
-    return n >= k - n ? factorial(k, n + 1) / factorial(k - n, 1) : factorial(k, k - n + 1) / factorial(n, 1);
+    if(n >= k - n){
+        console.log("first");
+        console.log(k);
+        console.log(n + 1);
+        console.log(k - n);
+        return factorial(k, n + 1) / factorial(k - n, 1);
+    }else{
+        console.log("second");
+        return factorial(k, k - n + 1) / factorial(n, 1);
+    }
+    //return n >= k - n ? factorial(k, n + 1) / factorial(k - n, 1) : factorial(k, k - n + 1) / factorial(n, 1);
 }
 
 const factorial = (e, x) => {
