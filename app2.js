@@ -26,16 +26,10 @@ function calculatePascalsElement(k, n) {
     }
 
     if(n >= k - n){
-        console.log("first");
-        console.log(k);
-        console.log(n + 1);
-        console.log(k - n);
         return factorial(k, n + 1) / factorial(k - n, 1);
     }else{
-        console.log("second");
         return factorial(k, k - n + 1) / factorial(n, 1);
     }
-    //return n >= k - n ? factorial(k, n + 1) / factorial(k - n, 1) : factorial(k, k - n + 1) / factorial(n, 1);
 }
 
 const factorial = (e, x) => {
